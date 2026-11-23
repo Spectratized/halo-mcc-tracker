@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bungie.net : Halo 3 Service Record // MCC Achievement Manifest</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="https://shared.akamai.steamstatic.com/community_assets/images/apps/976730/295994d6837f319474877fac6036b13bcc09e7cc.jpg" type="image/jpeg">
+</head>
+<body>
+  <div class="bnet-wrapper">
+
+    <!-- TOP MASTHEAD -->
+    <header class="bnet-masthead">
+      <div class="bnet-topbar">
+        <div class="bnet-brand">
+          <div class="bnet-insignia" title="UNSC Service Record">
+            <!-- Classic Marathon / Bungie / Xbox Insignia -->
+            <svg viewBox="0 0 100 100">
+              <polygon points="50,5 93,25 93,75 50,95 7,75 7,25" fill="none" stroke="#ffd700" stroke-width="6"/>
+              <circle cx="50" cy="50" r="26" fill="none" stroke="#52b72a" stroke-width="5"/>
+              <line x1="50" y1="20" x2="50" y2="80" stroke="#ffd700" stroke-width="5"/>
+              <line x1="20" y1="50" x2="80" y2="50" stroke="#ffd700" stroke-width="5"/>
+            </svg>
+          </div>
+          <div class="bnet-titles">
+            <h1>BUNGIE.NET <span>//</span> HALO 3 SERVICE RECORD</h1>
+          </div>
+        </div>
+      </div>
+
+      <!-- SERVICE RECORD LOOKUP / STEAM SYNC DOCK -->
+      <div class="sync-dock">
+        <div class="sync-form">
+          <span class="dock-label">SERVICE RECORD LOOKUP:</span>
+          <input 
+            type="text" 
+            id="steam-username-input" 
+            class="bnet-input" 
+            placeholder="ENTER STEAM USERNAME, VANITY ID, OR STEAMID64 (E.G. LilacLiliac)"
+            autocomplete="off"
+            spellcheck="false"
+          >
+          <button id="sync-steam-btn" class="bnet-btn bnet-btn-gold">
+            [SYNC SERVICE RECORD]
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- SPLIT PANE CONTAINER -->
+    <main class="bnet-split-pane">
+
+      <!-- ============================================================= -->
+      <!-- LEFT PANE: SPARTAN DOSSIER & PROGRESSION ONLY                 -->
+      <!-- ============================================================= -->
+      <aside class="dossier-pane">
+
+        <!-- Spartan Dossier & Rank Card -->
+        <div class="dossier-box">
+          <div class="dossier-content">
+            
+            <div class="spartan-id-card">
+              <div class="rank-insignia-frame">
+                <!-- Military Rank Insignia SVG -->
+                <svg class="rank-icon-svg" viewBox="0 0 40 40">
+                  <polygon points="20,2 38,10 38,28 20,38 2,28 2,10" fill="#0d2413" stroke="#ffd700" stroke-width="2"/>
+                  <path d="M10,13 L20,7 L30,13" fill="none" stroke="#52b72a" stroke-width="2.5" stroke-linecap="square"/>
+                  <path d="M10,18 L20,12 L30,18" fill="none" stroke="#3498db" stroke-width="2" stroke-linecap="square"/>
+                  <path d="M10,23 L20,17 L30,23" fill="none" stroke="#3498db" stroke-width="2" stroke-linecap="square"/>
+                  <polygon points="20,24 22,29 27,29 23,32 25,37 20,34 15,37 17,32 13,29 18,29" fill="#ffd700"/>
+                </svg>
+              </div>
+              <div class="spartan-meta">
+                <div id="spartan-tag" class="spartan-service-tag">SPARTAN-117</div>
+                <div id="spartan-rank-title" class="spartan-rank-name">GRADE: MASTER CHIEF // COMMAND</div>
+                <div id="spartan-steam-id" class="spartan-id-sub">STEAM ID: NOT SYNCHRONIZED</div>
+              </div>
+            </div>
+
+            <!-- Master Completion Gauge -->
+            <div class="gauge-block">
+              <div class="gauge-readout-row">
+                <div id="hud-percentage" class="large-gauge-pct">0.0%</div>
+                <div class="gauge-fraction">
+                  <span id="hud-fraction-unlocked">0</span> / 700 DIRECTIVES
+                </div>
+              </div>
+
+              <!-- Beveled Progress Track -->
+              <div class="beveled-meter-track">
+                <div id="hud-progress-fill" class="beveled-meter-fill"></div>
+              </div>
+
+              <div class="meter-stats-row">
+                <span class="stat-unlocked" id="hud-unlocked-count">0 COMPLETED</span>
+                <span class="stat-remaining" id="hud-remaining-count">700 REMAINING</span>
+              </div>
+
+              <!-- Next Up Active Targets Telemetry -->
+              <div class="meter-stats-row targets-telemetry-row">
+                <span class="stat-targets" id="hud-targets-count">NEXT UP: 0 ACTIVE</span>
+                <span class="stat-clear-targets" id="clear-targets-btn" title="Clear all active targets">[CLEAR TARGETS]</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- ============================================================= -->
+      <!-- RIGHT PANE: ACHIEVEMENT MANIFEST (COMPACT TABULAR DATA ROWS)   -->
+      <!-- ============================================================= -->
+      <section class="manifest-pane">
+
+        <!-- Manifest Panel Header -->
+        <div class="bnet-panel-header">
+          <div class="panel-header-left">
+            <h2>ACHIEVEMENT MANIFEST // CARNAGE REPORT DATA</h2>
+            <div class="view-mode-selector">
+              <span class="view-mode-label">VIEW:</span>
+              <button class="bnet-view-btn active" id="view-btn-retro" data-view="retro" title="RetroAchievements Style Badge Grid & Game Hubs">
+                [RETRO BADGE GRID]
+              </button>
+              <button class="bnet-view-btn" id="view-btn-table" data-view="table" title="Carnage Report Tabular Manifest">
+                [TABLE]
+              </button>
+            </div>
+          </div>
+          <div class="header-right-meta">
+            <div class="retro-expand-controls" id="retro-expand-controls">
+              <button class="bnet-btn-sm" id="retro-expand-all" title="Expand all game sections">[EXPAND ALL]</button>
+              <button class="bnet-btn-sm" id="retro-collapse-all" title="Collapse all game sections">[COLLAPSE ALL]</button>
+            </div>
+            <span id="results-count" class="header-accent-tag">DISPLAYING 700 OF 700</span>
+          </div>
+        </div>
+
+        <!-- Manifest Toolbar (Search, Status, Theater, Category, Rarity, Sort) -->
+        <div class="manifest-toolbar">
+          
+          <div class="manifest-search-box">
+            <span class="search-bracket-tag">QUERY:</span>
+            <input 
+              type="text" 
+              id="search-input" 
+              class="bnet-search-input" 
+              placeholder="SEARCH BY DIRECTIVE NAME, OBJECTIVE, SKULL, LEVEL, LASO..."
+              spellcheck="false"
+            >
+          </div>
+
+          <!-- Status Tabs (Including NEXT UP) -->
+          <div class="manifest-status-tabs">
+            <button class="status-tab-btn active" data-status="all">[ALL 700]</button>
+            <button class="status-tab-btn" data-status="unlocked">[CONFIRMED]</button>
+            <button class="status-tab-btn" data-status="locked">[LOCKED]</button>
+            <button class="status-tab-btn status-tab-active" data-status="active" id="tab-active-targets">[NEXT UP (0)]</button>
+          </div>
+
+          <!-- Filters Dropdowns -->
+          <div class="manifest-dropdowns">
+            
+            <!-- Theater / Campaign Filter -->
+            <select id="game-filter" class="bnet-select">
+              <option value="all">THEATER: ALL (700)</option>
+              <option value="Halo: Reach">THEATER: HALO REACH (100)</option>
+              <option value="Halo: Combat Evolved">THEATER: HALO CE (95)</option>
+              <option value="Halo 2: Anniversary">THEATER: HALO 2A (157)</option>
+              <option value="Halo 3">THEATER: HALO 3 (90)</option>
+              <option value="Halo 3: ODST">THEATER: H3 ODST (97)</option>
+              <option value="Halo 4">THEATER: HALO 4 (75)</option>
+              <option value="Cross-Game / Global">THEATER: GLOBAL MCC (86)</option>
+            </select>
+
+            <!-- Classification Category Filter -->
+            <select id="type-filter" class="bnet-select">
+              <option value="all">CLASS: ALL</option>
+              <option value="Campaign Progression">CLASS: CAMPAIGN (153)</option>
+              <option value="Speedrun (Par Time)">CLASS: PAR TIMES (64)</option>
+              <option value="Score (Par Score)">CLASS: PAR SCORES (65)</option>
+              <option value="Collectibles & Secrets">CLASS: SKULLS / COLLECT (174)</option>
+              <option value="LASO & Playlists">CLASS: LASO (34)</option>
+              <option value="Multiplayer & Combat">CLASS: MULTIPLAYER (122)</option>
+              <option value="Challenges & Easter Eggs">CLASS: CHALLENGES (88)</option>
+            </select>
+
+            <!-- Rarity Filter -->
+            <select id="rarity-filter" class="bnet-select">
+              <option value="all">RARITY: ALL</option>
+              <option value="legendary">RARITY: &lt;1% (LEGENDARY)</option>
+              <option value="ultra-rare">RARITY: 1%-5% (ULTRA-RARE)</option>
+              <option value="rare">RARITY: 5%-15% (RARE)</option>
+              <option value="common">RARITY: &gt;15% (STANDARD)</option>
+            </select>
+
+            <!-- Sort Select -->
+            <select id="sort-select" class="bnet-select">
+              <option value="default">SORT: DEFAULT INDEX</option>
+              <option value="rarity-asc">SORT: RAREST FIRST</option>
+              <option value="rarity-desc">SORT: MOST COMMON</option>
+              <option value="name-asc">SORT: DIRECTIVE A-Z</option>
+              <option value="name-desc">SORT: DIRECTIVE Z-A</option>
+              <option value="unlocked-recent">SORT: RECENTLY UNLOCKED</option>
+            </select>
+          </div>
+
+        </div>
+
+        <!-- Tabular Carnage Report Data Table -->
+        <div class="manifest-table-wrapper" id="manifest-table-wrapper" style="display: none;">
+          <table class="manifest-table">
+            <thead>
+              <tr>
+                <th class="col-status" title="Click [X]/[ ] to toggle completion">REC</th>
+                <th class="col-icon">ICON</th>
+                <th class="col-directive" title="Click row to mark as Next Up (Golden Outline)">DIRECTIVE & MISSION OBJECTIVE</th>
+                <th class="col-game">THEATER</th>
+                <th class="col-type">CLASSIFICATION</th>
+                <th class="col-rarity">RARITY</th>
+                <th class="col-date">RECORDED</th>
+              </tr>
+            </thead>
+            <tbody id="achievements-tbody">
+              <!-- Dynamically populated compact rows -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- RetroAchievements Game Hub / Badge Grid View -->
+        <div class="retro-hub-wrapper" id="retro-hub-wrapper">
+          <!-- Dynamically populated Game Cards -->
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- RetroAchievements Floating Popover Tooltip -->
+  <div id="retro-tooltip" class="retro-tooltip" style="display: none;">
+    <div class="retro-tooltip-inner">
+      <img id="retro-tooltip-icon" class="retro-tooltip-thumb" src="" alt="">
+      <div class="retro-tooltip-info">
+        <div id="retro-tooltip-title" class="retro-tooltip-title">Directive Name</div>
+        <div id="retro-tooltip-desc" class="retro-tooltip-desc">Directive description</div>
+        <div class="retro-tooltip-stats">
+          <span id="retro-tooltip-rarity" class="tooltip-rarity">1.0% (Legendary)</span>
+          <span class="tooltip-dot">•</span>
+          <span id="retro-tooltip-type" class="tooltip-type">Campaign</span>
+        </div>
+        <div class="retro-tooltip-game-line">
+          <span id="retro-tooltip-game" class="tooltip-game">Halo 1: Combat Evolved</span>
+          <span id="retro-tooltip-status" class="tooltip-status-tag">[CONFIRMED]</span>
+        </div>
+        <div class="retro-tooltip-actions-hint">
+          [CLICK]: TOGGLE COMPLETED &nbsp;|&nbsp; [ALT+CLICK]: NEXT UP TARGET
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="achievements_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
